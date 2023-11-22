@@ -64,7 +64,7 @@ local = false
 src = ""
 
 [colorScheme]
-# toggle = true
+toggle = true
 default = "light"
 
 [imageProcessing.cover]
