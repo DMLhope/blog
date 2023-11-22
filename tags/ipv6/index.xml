@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>ipv6 on DML's Blog</title><link>https://dmlhope.gitlab.io/tags/ipv6/</link><description>Recent content in ipv6 on DML's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Wed, 22 Nov 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://dmlhope.gitlab.io/tags/ipv6/index.xml" rel="self" type="application/rss+xml"/><item><title>关闭ipv6的方法</title><link>https://dmlhope.gitlab.io/p/%E5%85%B3%E9%97%ADipv6%E7%9A%84%E6%96%B9%E6%B3%95/</link><pubDate>Wed, 22 Nov 2023 00:00:00 +0000</pubDate><guid>https://dmlhope.gitlab.io/p/%E5%85%B3%E9%97%ADipv6%E7%9A%84%E6%96%B9%E6%B3%95/</guid><description>&lt;img src="https://dmlhope.gitlab.io/p/%E5%85%B3%E9%97%ADipv6%E7%9A%84%E6%96%B9%E6%B3%95/20231122.png" alt="Featured image of post 关闭ipv6的方法" />&lt;h2 id="linux配置文件关闭ipv6">linux配置文件关闭ipv6&lt;/h2>
+&lt;p>编辑/etc/sysctl.conf文件&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo vim /etc/sysctl.conf
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>添加如下代码:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">net.ipv6.conf.all.disable_ipv6=1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">net.ipv6.conf.default.disable_ipv6=1
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">net.ipv6.conf.lo.disable_ipv6=1
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>重新加载配置&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo sysctl -p
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="linux临时关闭ipv6">linux临时关闭ipv6&lt;/h2>
+&lt;p>查询自己的网卡名称可以使用&lt;code>ipconfig&lt;/code>或者&lt;code>ip a&lt;/code>,用来确认想要关闭ipv6的网卡名
+临时关闭可以使用如下命令:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl"> sudo sh -c &amp;#39;echo 1 &amp;gt; /proc/sys/net/ipv6/conf/&amp;lt;interface-name&amp;gt;/disable_ipv6&amp;#39;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>这里的&lt;code>&amp;lt;interface-name&amp;gt;&lt;/code>指的就是之前确认的网卡名&lt;/p></description></item></channel></rss>

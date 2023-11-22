@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>dkms on DML's Blog</title><link>https://dmlhope.gitlab.io/tags/dkms/</link><description>Recent content in dkms on DML's Blog</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sun, 08 Aug 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://dmlhope.gitlab.io/tags/dkms/index.xml" rel="self" type="application/rss+xml"/><item><title>dkms 内核模块打包 deb</title><link>https://dmlhope.gitlab.io/p/dkms-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85-deb/</link><pubDate>Sun, 08 Aug 2021 00:00:00 +0000</pubDate><guid>https://dmlhope.gitlab.io/p/dkms-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85-deb/</guid><description>&lt;img src="https://dmlhope.gitlab.io/p/dkms-%E5%86%85%E6%A0%B8%E6%A8%A1%E5%9D%97%E6%89%93%E5%8C%85-deb/20210808.jpg" alt="Featured image of post dkms 内核模块打包 deb" />&lt;h2 id="安装环境-">安装环境 :&lt;/h2>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">sudo apt-get install dkms
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">sudo apt-get install dh-make
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="文件-">文件 :&lt;/h2>
+&lt;h3 id="helloc">hello.c&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt"> 1
+&lt;/span>&lt;span class="lnt"> 2
+&lt;/span>&lt;span class="lnt"> 3
+&lt;/span>&lt;span class="lnt"> 4
+&lt;/span>&lt;span class="lnt"> 5
+&lt;/span>&lt;span class="lnt"> 6
+&lt;/span>&lt;span class="lnt"> 7
+&lt;/span>&lt;span class="lnt"> 8
+&lt;/span>&lt;span class="lnt"> 9
+&lt;/span>&lt;span class="lnt">10
+&lt;/span>&lt;span class="lnt">11
+&lt;/span>&lt;span class="lnt">12
+&lt;/span>&lt;span class="lnt">13
+&lt;/span>&lt;span class="lnt">14
+&lt;/span>&lt;span class="lnt">15
+&lt;/span>&lt;span class="lnt">16
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-c" data-lang="c">&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;linux/kernel.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;linux/init.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">#include&lt;/span> &lt;span class="cpf">&amp;lt;linux/module.h&amp;gt;&lt;/span>&lt;span class="cp">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="cp">&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="kt">int&lt;/span> &lt;span class="nf">hello_init&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">pr_info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Hello world.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">return&lt;/span> &lt;span class="mi">0&lt;/span>&lt;span class="p">;&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="k">static&lt;/span> &lt;span class="kt">void&lt;/span> &lt;span class="nf">hello_exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="kt">void&lt;/span>&lt;span class="p">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">{&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="nf">pr_info&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="s">&amp;#34;Goodbye world.&lt;/span>&lt;span class="se">\n&lt;/span>&lt;span class="s">&amp;#34;&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="p">}&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">module_init&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hello_init&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">module_exit&lt;/span>&lt;span class="p">(&lt;/span>&lt;span class="n">hello_exit&lt;/span>&lt;span class="p">);&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="makefile">Makefile&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-makefile" data-lang="makefile">&lt;span class="line">&lt;span class="cl">&lt;span class="err">ifneq&lt;/span> &lt;span class="err">(&lt;/span>&lt;span class="k">$(&lt;/span>&lt;span class="nv">KERNELRELEASE&lt;/span>&lt;span class="k">)&lt;/span>&lt;span class="err">,)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">obj-m&lt;/span> &lt;span class="o">:=&lt;/span> hello.o
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">else&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nv">KVERSION&lt;/span>&lt;span class="o">:=&lt;/span> &lt;span class="k">$(&lt;/span>shell uname -r&lt;span class="k">)&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">all&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">$(&lt;/span>MAKE&lt;span class="k">)&lt;/span> -C /lib/modules/&lt;span class="k">$(&lt;/span>KVERSION&lt;span class="k">)&lt;/span>/build &lt;span class="nv">M&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>PWD&lt;span class="k">)&lt;/span> modules
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="nf">clean&lt;/span>&lt;span class="o">:&lt;/span>
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl"> &lt;span class="k">$(&lt;/span>MAKE&lt;span class="k">)&lt;/span> -C /lib/modules/&lt;span class="k">$(&lt;/span>KVERSION&lt;span class="k">)&lt;/span>/build &lt;span class="nv">M&lt;/span>&lt;span class="o">=&lt;/span>&lt;span class="k">$(&lt;/span>PWD&lt;span class="k">)&lt;/span> clean
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="err">endif&lt;/span>
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h3 id="dkmsconf">dkms.conf&lt;/h3>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-fallback" data-lang="fallback">&lt;span class="line">&lt;span class="cl">PACKAGE_NAME=&amp;#34;hello&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">PACKAGE_VERSION=&amp;#34;0.1&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">BUILT_MODULE_NAME[0]=&amp;#34;hello&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">DEST_MODULE_LOCATION[0]=&amp;#34;/updates&amp;#34;
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">AUTOINSTALL=&amp;#34;yes&amp;#34;
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>模块需要在 /usr/src 下建立文件夹，命名方式为 &amp;lt; 模块名称 &amp;gt;-&amp;lt; 版本号 &amp;gt;, 如 :hello-0.1&lt;/p>
+&lt;p>路径 :/usr/src/hello-0.1&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-shell" data-lang="shell">&lt;span class="line">&lt;span class="cl">.
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── dkms.conf
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">├── hello.c
+&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">└── Makefile
+&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;h2 id="命令-">命令 :&lt;/h2>
+&lt;p>&lt;code>dkms status 、add、build、install、uninstall 和 remove&lt;/code>&lt;/p>
+&lt;p>状态 : &lt;code>dkms status&lt;/code>&lt;/p>
+&lt;p>添加模块 :&lt;code>sudo dkms add -m hello -v 0.1&lt;/code>&lt;/p>
+&lt;p>编译驱动 :&lt;code>sudo dkms build -m hello -v 0.1&lt;/code>&lt;/p>
+&lt;p>安装模块 :&lt;code>sudo dkms install -m hello -v 0.1&lt;/code>&lt;/p>
+&lt;p>移除模块 :&lt;code>sudo dkms remove -m hello -v 0.1 --all&lt;/code>&lt;/p>
+&lt;p>模块打包 :&lt;code>sudo dkms mkdeb -m hello -v 0.1&lt;/code>&lt;/p>
+&lt;p>deb 产出 :&lt;code>/var/lib/dkms/hello/0.1/deb/&lt;/code>&lt;/p></description></item></channel></rss>
